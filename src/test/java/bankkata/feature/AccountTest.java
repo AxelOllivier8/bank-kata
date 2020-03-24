@@ -14,8 +14,9 @@ public class AccountTest {
     public void addTransactionWhenDeposit(){
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
         String expectedDate = "24/03/2020";
+        DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 100;
-        Account account = new Account(appendTransaction);
+        Account account = new Account(appendTransaction, dateTransaction);
         Transaction expectedTransaction = Transaction.aTransaction()
                 .withAmount(expectedAmount)
                 .withDate(expectedDate)
@@ -23,6 +24,23 @@ public class AccountTest {
                 .build();
 
         account.deposit(100);
+        assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
+    }
+
+    @Test
+    void addAnotherTestDeposit() {
+        AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
+        String expectedDate = "23/03/2020";
+        DateTransaction dateTransaction = () -> expectedDate;
+        int expectedAmount = 50;
+        Account account = new Account(appendTransaction, dateTransaction);
+        Transaction expectedTransaction = Transaction.aTransaction()
+                .withAmount(expectedAmount)
+                .withDate(expectedDate)
+                .withTransactionType(DEPOSIT)
+                .build();
+
+        account.deposit(50);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
     }
 

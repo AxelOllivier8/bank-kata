@@ -4,9 +4,15 @@ import static bankkata.feature.TransactionType.*;
 
 public class Account {
     private AppendTransaction appendTransaction;
+    private DateTransaction dateTransaction;
 
     public Account(AppendTransaction appendTransaction) {
 
+        this.appendTransaction = appendTransaction;
+    }
+
+    public Account(AppendTransaction appendTransaction, DateTransaction dateTransaction) {
+        this.dateTransaction = dateTransaction;
         this.appendTransaction = appendTransaction;
     }
 
@@ -21,7 +27,7 @@ public class Account {
     }
 
     public void deposit(int amount) {
-        createTransaction(amount, "24/03/2020", DEPOSIT);
+        createTransaction(amount, dateTransaction.get(), DEPOSIT);
     }
 
 
