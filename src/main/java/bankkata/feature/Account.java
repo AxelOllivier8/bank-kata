@@ -11,7 +11,7 @@ public class Account {
     }
 
     public void deposit(int amount) {
-        if(appendTransaction != null){
+        if (appendTransaction != null) {
             Transaction transaction = Transaction.aTransaction()
                     .withDate("24/03/2020")
                     .withAmount(amount)
@@ -23,7 +23,15 @@ public class Account {
     }
 
     public void withdraw(int amount) {
+        if (appendTransaction != null) {
+            Transaction transaction = Transaction.aTransaction()
+                    .withDate("25/03/2020")
+                    .withAmount(amount)
+                    .withTransactionType(WITHDRAWAL)
+                    .build();
 
+            appendTransaction.append(transaction);
+        }
     }
 
 
