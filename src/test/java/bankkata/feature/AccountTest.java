@@ -24,13 +24,14 @@ public class AccountTest {
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
         DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 100;
-        Account account = new Account(appendTransaction, dateTransaction);
         Transaction expectedTransaction = Transaction.aTransaction()
                 .withAmount(expectedAmount)
                 .withDate(expectedDate)
                 .withTransactionType(DEPOSIT)
                 .build();
-
+        FetchTransaction fetchTransaction = () -> null;
+        PrinterTransaction printerTransaction = (transactions) -> {};
+        Account account = new Account(appendTransaction, dateTransaction, printerTransaction, fetchTransaction);
         account.deposit(100);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
     }
@@ -41,19 +42,21 @@ public class AccountTest {
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
         DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 50;
-        Account account = new Account(appendTransaction, dateTransaction);
         Transaction expectedTransaction = Transaction.aTransaction()
                 .withAmount(expectedAmount)
                 .withDate(expectedDate)
                 .withTransactionType(WITHDRAWAL)
                 .build();
+        FetchTransaction fetchTransaction = () -> null;
+        PrinterTransaction printerTransaction = (transactions) -> {};
+        Account account = new Account(appendTransaction, dateTransaction, printerTransaction, fetchTransaction);
 
         account.withdraw(50);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
     }
 
     @Test
-    public void aaa(){
+    public void printTransactionsWhenPrintStatement(){
         List<Transaction> expectedTransactionsToPrint = Collections.singletonList(
                 Transaction.aTransaction()
                         .build()
