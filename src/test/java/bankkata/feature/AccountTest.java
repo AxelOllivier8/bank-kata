@@ -4,12 +4,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import static bankkata.feature.TransactionType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountTest {
 
     private Transaction actualTransaction;
+    private List<Transaction> transactionsToPrint;
 
 
     @ParameterizedTest
@@ -44,5 +50,21 @@ public class AccountTest {
 
         account.withdraw(50);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
+    }
+
+    @Test
+    public void aaa(){
+        List<Transaction> expectedTransactionsToPrint = Collections.singletonList(
+                Transaction.aTransaction()
+                        .build()
+        );
+        AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
+        String expectedDate = "";
+        DateTransaction dateTransaction = () -> expectedDate;
+        PrinterTransaction printerTransaction = (transactions) ->  this.transactionsToPrint = transactions;
+        FetchTransaction fetchTransaction = () -> expectedTransactionsToPrint;
+        Account account = new Account(appendTransaction, dateTransaction, printerTransaction, fetchTransaction);
+        account.printStatement();
+        assertThat(this.transactionsToPrint).isEqualTo(expectedTransactionsToPrint);
     }
 }
