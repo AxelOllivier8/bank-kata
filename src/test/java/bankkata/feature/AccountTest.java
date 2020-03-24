@@ -22,13 +22,12 @@ public class AccountTest {
     }
 
     @Test
-    public void aa(){
+    public void addTransactionWhenDeposit(){
         AppendTransactionObject appendTransaction = (transaction) -> this.actualTransaction = transaction;
         String expectedDate = "24/03/2020";
-        TransactionType expectedTransactionType = DEPOSIT;
         int expectedAmount = 100;
         Account account = new Account(appendTransaction);
-        Transaction expectedTransaction = new Transaction(expectedDate,expectedAmount,expectedTransactionType);
+        Transaction expectedTransaction = new Transaction(expectedDate,expectedAmount, DEPOSIT);
 
         account.deposit(100);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
