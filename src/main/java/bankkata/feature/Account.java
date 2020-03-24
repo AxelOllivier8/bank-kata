@@ -11,9 +11,9 @@ public class Account {
         this.appendTransaction = appendTransaction;
     }
 
-    private void createTransaction(int amount, String transactionDate, TransactionType transactionType) {
+    private void createTransaction(int amount, TransactionType transactionType) {
         Transaction transaction = Transaction.aTransaction()
-                .withDate(transactionDate)
+                .withDate(dateTransaction.get())
                 .withAmount(amount)
                 .withTransactionType(transactionType)
                 .build();
@@ -22,12 +22,12 @@ public class Account {
     }
 
     public void deposit(int amount) {
-        createTransaction(amount, dateTransaction.get(), DEPOSIT);
+        createTransaction(amount, DEPOSIT);
     }
 
 
     public void withdraw(int amount) {
-        createTransaction(amount, dateTransaction.get(), WITHDRAWAL);
+        createTransaction(amount, WITHDRAWAL);
     }
 
 
