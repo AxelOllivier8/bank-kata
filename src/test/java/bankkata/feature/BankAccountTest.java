@@ -2,7 +2,6 @@ package bankkata.feature;
 
 import org.junit.jupiter.api.Test;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +25,7 @@ public class BankAccountTest {
         String expectedFirstLine = "DATE       | AMOUNT  | BALANCE";
         String expectedSecondLine = "10/04/2014 | 500.00  | 1400.00";
         String expectedThirdLine = "02/04/2014 | -100.00 | 900.00";
-        Account account = new Account((AppendTransactionObject) null);
+        Account account = new Account((AppendTransaction) null);
         account.deposit(500);
         account.withdraw(100);
         account.printStatement();

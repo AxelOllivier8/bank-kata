@@ -1,6 +1,8 @@
 package bankkata.feature;
 
+@FunctionalInterface
 public interface AppendTransaction {
 
-    void append(int amount);
+    void append(Transaction transaction);
+
 }
