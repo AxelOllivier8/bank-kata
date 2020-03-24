@@ -10,28 +10,23 @@ public class Account {
         this.appendTransaction = appendTransaction;
     }
 
-    public void deposit(int amount) {
-        if (appendTransaction != null) {
-            Transaction transaction = Transaction.aTransaction()
-                    .withDate("24/03/2020")
-                    .withAmount(amount)
-                    .withTransactionType(DEPOSIT)
-                    .build();
+    private void createTransaction(int amount, String transactionDate, TransactionType transactionType) {
+        Transaction transaction = Transaction.aTransaction()
+                .withDate(transactionDate)
+                .withAmount(amount)
+                .withTransactionType(transactionType)
+                .build();
 
-            appendTransaction.append(transaction);
-        }
+        appendTransaction.append(transaction);
     }
 
-    public void withdraw(int amount) {
-        if (appendTransaction != null) {
-            Transaction transaction = Transaction.aTransaction()
-                    .withDate("25/03/2020")
-                    .withAmount(amount)
-                    .withTransactionType(WITHDRAWAL)
-                    .build();
+    public void deposit(int amount) {
+        createTransaction(amount, "24/03/2020", DEPOSIT);
+    }
 
-            appendTransaction.append(transaction);
-        }
+
+    public void withdraw(int amount) {
+        createTransaction(amount, "25/03/2020", WITHDRAWAL);
     }
 
 
