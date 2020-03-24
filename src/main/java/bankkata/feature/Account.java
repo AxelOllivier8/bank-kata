@@ -8,18 +8,6 @@ public class Account {
     private PrinterTransaction printerTransaction;
     private FetchTransaction fetchTransaction;
 
-    public Account(AppendTransaction appendTransaction, DateTransaction dateTransaction) {
-        this.dateTransaction = dateTransaction;
-        this.appendTransaction = appendTransaction;
-    }
-
-    public Account(AppendTransaction appendTransaction, DateTransaction dateTransaction, PrinterTransaction printerTransaction) {
-
-        this.appendTransaction = appendTransaction;
-        this.dateTransaction = dateTransaction;
-        this.printerTransaction = printerTransaction;
-    }
-
     public Account(AppendTransaction appendTransaction, DateTransaction dateTransaction, PrinterTransaction printerTransaction, FetchTransaction fetchTransaction) {
 
         this.appendTransaction = appendTransaction;
