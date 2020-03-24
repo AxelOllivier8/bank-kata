@@ -12,7 +12,12 @@ public class Account {
 
     public void deposit(int amount) {
         if(appendTransaction != null){
-            Transaction transaction = new Transaction("24/03/2020", amount, DEPOSIT);
+            Transaction transaction = Transaction.aTransaction()
+                    .withDate("24/03/2020")
+                    .withAmount(amount)
+                    .withTransactionType(DEPOSIT)
+                    .build();
+
             appendTransaction.append(transaction);
         }
     }

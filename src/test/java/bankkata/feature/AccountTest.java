@@ -16,7 +16,11 @@ public class AccountTest {
         String expectedDate = "24/03/2020";
         int expectedAmount = 100;
         Account account = new Account(appendTransaction);
-        Transaction expectedTransaction = new Transaction(expectedDate,expectedAmount, DEPOSIT);
+        Transaction expectedTransaction = Transaction.aTransaction()
+                .withAmount(expectedAmount)
+                .withDate(expectedDate)
+                .withTransactionType(DEPOSIT)
+                .build();
 
         account.deposit(100);
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
