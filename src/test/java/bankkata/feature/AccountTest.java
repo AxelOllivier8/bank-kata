@@ -1,6 +1,8 @@
 package bankkata.feature;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static bankkata.feature.TransactionType.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,10 +12,10 @@ public class AccountTest {
     private Transaction actualTransaction;
 
 
-    @Test
-    public void addTransactionWhenDeposit(){
+    @ParameterizedTest
+    @ValueSource(strings = {"24/03/2020", "23/03/2020"})
+    public void addTransactionWhenDeposit(String expectedDate){
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
-        String expectedDate = "24/03/2020";
         DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 100;
         Account account = new Account(appendTransaction, dateTransaction);
@@ -27,44 +29,10 @@ public class AccountTest {
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
     }
 
-    @Test
-    void addAnotherTestDeposit() {
+    @ParameterizedTest
+    @ValueSource(strings = {"25/03/2020", "28/03/2020"})
+    public void addTransactionWhenWithdraw(String expectedDate){
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
-        String expectedDate = "23/03/2020";
-        DateTransaction dateTransaction = () -> expectedDate;
-        int expectedAmount = 50;
-        Account account = new Account(appendTransaction, dateTransaction);
-        Transaction expectedTransaction = Transaction.aTransaction()
-                .withAmount(expectedAmount)
-                .withDate(expectedDate)
-                .withTransactionType(DEPOSIT)
-                .build();
-
-        account.deposit(50);
-        assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
-    }
-
-    @Test
-    public void addTransactionWhenWithdraw(){
-        AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
-        String expectedDate = "25/03/2020";
-        DateTransaction dateTransaction = () -> expectedDate;
-        int expectedAmount = 50;
-        Account account = new Account(appendTransaction, dateTransaction);
-        Transaction expectedTransaction = Transaction.aTransaction()
-                .withAmount(expectedAmount)
-                .withDate(expectedDate)
-                .withTransactionType(WITHDRAWAL)
-                .build();
-
-        account.withdraw(50);
-        assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
-    }
-
-    @Test
-    void aNewTestWithdraw() {
-        AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
-        String expectedDate = "28/03/2020";
         DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 50;
         Account account = new Account(appendTransaction, dateTransaction);
