@@ -48,8 +48,9 @@ public class AccountTest {
     public void addTransactionWhenWithdraw(){
         AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
         String expectedDate = "25/03/2020";
+        DateTransaction dateTransaction = () -> expectedDate;
         int expectedAmount = 50;
-        Account account = new Account(appendTransaction);
+        Account account = new Account(appendTransaction, dateTransaction);
         Transaction expectedTransaction = Transaction.aTransaction()
                 .withAmount(expectedAmount)
                 .withDate(expectedDate)
@@ -60,5 +61,20 @@ public class AccountTest {
         assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
     }
 
+    @Test
+    void aNewTestWithdraw() {
+        AppendTransaction appendTransaction = (transaction) -> this.actualTransaction = transaction;
+        String expectedDate = "28/03/2020";
+        DateTransaction dateTransaction = () -> expectedDate;
+        int expectedAmount = 50;
+        Account account = new Account(appendTransaction, dateTransaction);
+        Transaction expectedTransaction = Transaction.aTransaction()
+                .withAmount(expectedAmount)
+                .withDate(expectedDate)
+                .withTransactionType(WITHDRAWAL)
+                .build();
 
+        account.withdraw(50);
+        assertThat(this.actualTransaction).isEqualTo(expectedTransaction);
+    }
 }
